@@ -26,12 +26,15 @@ jobs:
           npm install
           npm run build --if-present
           npm run test --if-present
-      
+
+      - name: Zip all files for upload between jobs
+        run: Compress-Archive -Path .\* -DestinationPath next.zip
+    
       - name: Upload artifact for deployment job
-        uses: actions/upload-artifact@v4
+        uses: actions/upload-artifact@v3
         with:
           name: node-app
-          path: .
+          path: angularssr.zip
 
   deploy:
     runs-on: ubuntu-latest
@@ -61,5 +64,8 @@ jobs:
         with:
           app-name: 'ansalemo-angularssr-zip'
           slot-name: 'Production'
-          package: .
+          package: angularssr.zip
+
+      - name: Delete zip file
+        run: rm next.zip
           
