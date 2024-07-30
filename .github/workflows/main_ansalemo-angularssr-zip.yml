@@ -27,7 +27,7 @@ jobs:
           npm run build --if-present
 
       - name: Zip all files for upload between jobs
-        run: Compress-Archive -Path .\* -DestinationPath angularssr.zip
+        run: Compress-Archive -Path .\dist web.config server.js -DestinationPath angularssr.zip
     
       - name: Upload artifact for deployment job
         uses: actions/upload-artifact@v4
